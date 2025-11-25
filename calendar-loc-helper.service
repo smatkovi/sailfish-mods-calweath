@@ -1,0 +1,19 @@
+[Unit]
+Description=Calendar Location DBus Helper
+After=graphical.target lipstick.service
+
+[Service]
+Type=simple
+User=defaultuser
+Group=privileged
+Environment=QT_QPA_PLATFORM=wayland
+Environment=XDG_RUNTIME_DIR=/run/user/100000
+Environment=WAYLAND_DISPLAY=../../display/wayland-0
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/100000/dbus/user_bus_socket
+Environment=HOME=/home/defaultuser
+ExecStart=/usr/bin/qmlscene -I /usr/lib64/qt5/qml /home/defaultuser/.local/share/calendar-loc-helper/main.qml
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
